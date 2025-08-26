@@ -1,7 +1,10 @@
 package com.visitor.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.visitor.entity.LoginUser;
 import com.visitor.repository.LoginRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+/**
+ * @version 1.0 (Tested on Spring Boot 3.5.4)
+ * @author  Praveen
+ */
 
 @RestController
 @RequestMapping("/api/auth")
@@ -56,4 +68,26 @@ public class UserController {
 //        }
 //    }
 
+ // Get login user by loginId
+    @GetMapping("/{loginId}")
+    public ResponseEntity<LoginUser> getLoginUser(@PathVariable String loginId) {
+        LoginUser loginUser = loginRepository.findById(loginId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return ResponseEntity.ok(loginUser);
+    }
+    
+ // ✅ Logout endpoint
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
+        // Invalidate session
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        // Clear authentication if using Spring Security
+        //SecurityContextHolder.clearContext();
+
+        return ResponseEntity.ok("Logout successful");
+    }
 }

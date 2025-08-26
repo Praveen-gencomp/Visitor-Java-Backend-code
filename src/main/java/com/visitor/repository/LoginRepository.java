@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.visitor.entity.LoginUser;
 @Repository
-public interface LoginRepository extends JpaRepository<LoginUser, Long>{
+public interface LoginRepository extends JpaRepository<LoginUser, String>{
 	
 	Optional<LoginUser> findByLoginId(String loginId);
 

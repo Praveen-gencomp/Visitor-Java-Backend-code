@@ -32,7 +32,6 @@ public class Visitor {
 	    private String gender;
 	    private String documentType;
 	    private String licenseNumber;
-	    private LocalDate expiryDate;
 	    //Visitor Address
 	    private String address;
 	    private String town;
@@ -43,21 +42,24 @@ public class Visitor {
 	    private String vehicleNumber;
 	    private String vehicleType;
 	    private String company;
+	    private String preRegPassNo;
+	    
 	    //Visit Details
 	    @Column(name = "mobileNo", length = 10)
 	    private String telephoneNo;
 	    private String visitorCategory;
-	    private int noOfVisitors;
+	    private String noOfVisitors;
 	    private String purposeOfVisit;
 	    private String toMeet;
-
+	    private String hostInfo;
 	    private String hostName;
 	    private String deptName;
 	    private String locationDepartment;
 	    private String unitNo;
 	    private String permitNo;
-	    private String deliveryOrder;
+//	    private String deliveryOrder;
 	    private String remarks;
+	    
 	    //Additional Information
 	    private boolean fever;
 	    private boolean soreThroat;
@@ -69,9 +71,22 @@ public class Visitor {
 	    private boolean contactWithCovid;
 	    private boolean recoveredFromCovid;
 	    private boolean covidTestDone;
-
-	    private String gatePassNo;
+//	    private String gatePassNo;
 	    private LocalDateTime visitingDateAndTime;
+
+	    // File info saved by the service:
+	    @Column(name = "file_name")
+	    private String fileName;          // e.g., 1724220931_visitor.png
+
+	    @Column(name = "image_path")
+	    private String imagePath;         
+	    
+//	    private String imagePath;
+//	    private String capturedImage;
+//	    @Column(name = "imageName", nullable = false)
+//	    private String imageName;
+//	    @Column(name = "upload_time", nullable = false)
+//	    private LocalDateTime uploadTime = LocalDateTime.now();
 
 	    @PrePersist
 	    public void generateUnitId() {

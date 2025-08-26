@@ -1,36 +1,37 @@
 package com.visitor.entity;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 public class LoginUser {
 	
 	    @Id
 	    private String loginId;
 	    private String password;
-		public String getLoginId() {
-			return loginId;
-		}
-		public void setLoginId(String loginId) {
-			this.loginId = loginId;
-		}
-		public String getPassword() {
-			return password;
-		}
-		public void setPassword(String password) {
-			this.password = password;
-		}
+	    private String userName;
+	    private String role;
+	    @Column(name = "created_date")
+	    private LocalDateTime createdDate;
+	    
+	    @PrePersist
+	    protected void onCreate() {
+	        this.createdDate = LocalDateTime.now();
+	    }
+
 	    
 
 }
