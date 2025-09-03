@@ -1,6 +1,7 @@
 package com.visitor.services;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.visitor.entity.Visitor;
@@ -20,6 +21,8 @@ public interface VisitorService {
 	    Visitor saveFromBase64(VisitorRequest req);
 	    
 	    VisitorResponseDTO getVisitorByUnitNo(String unitNo) throws IOException;
-
+//	    List<Visitor> findByEntryDateBetween(LocalDate fromDate, LocalDate toDate);
+	    //List<Visitor> getVisitorsByDate(LocalDate fromDate, LocalDate toDate);
+	    List<Visitor> getVisitorsByDateRange(LocalDate fromDate, LocalDate toDate);
 
 }

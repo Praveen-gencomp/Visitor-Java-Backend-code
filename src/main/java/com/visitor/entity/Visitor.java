@@ -73,10 +73,12 @@ public class Visitor {
 	    private boolean covidTestDone;
 //	    private String gatePassNo;
 	    private LocalDateTime visitingDateAndTime;
+	    @Column(name = "entry_date")
+	    private LocalDate entryDate;
 
 	    // File info saved by the service:
 	    @Column(name = "file_name")
-	    private String fileName;          // e.g., 1724220931_visitor.png
+	    private String fileName; 
 
 	    @Column(name = "image_path")
 	    private String imagePath;         

@@ -17,10 +17,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- * @version 1.0 (Tested on Spring Boot 3.5.4)
- * @author  Praveen
- */
 
 @RestController
 @RequestMapping("/api/auth")

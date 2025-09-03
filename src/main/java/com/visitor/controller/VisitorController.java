@@ -7,11 +7,13 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,11 +34,6 @@ import com.visitor.services.VisitorService;
 import VisitorDTO.VisitorRequest;
 import VisitorDTO.VisitorResponse;
 import VisitorDTO.VisitorResponseDTO;
-
-/**
- * @version 1.0 (Tested on Spring Boot 3.5.4)
- * @author  Praveen
- */
 
 @RestController
 @RequestMapping("/api/visitors")
@@ -170,10 +167,18 @@ public class VisitorController {
         );
     }
 	
+    //Get Visitor by UnitNo
     @GetMapping("/unit")
     //@GetMapping("unit/{unitNo}")
     public ResponseEntity<VisitorResponseDTO> getVisitorByUnitNo(@RequestParam  String unitNo) throws IOException {
         return ResponseEntity.ok(visitorService.getVisitorByUnitNo(unitNo));
     }
+    
+    @GetMapping("/filter")
+    public List<Visitor> getReportByDate(
+            @RequestParam("fromDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @RequestParam("toDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
 
+        return visitorService.getVisitorsByDateRange(fromDate, toDate);
+    }
 }

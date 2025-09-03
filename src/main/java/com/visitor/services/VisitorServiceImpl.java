@@ -5,7 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -148,6 +150,15 @@ public class VisitorServiceImpl implements VisitorService {
         }
         return responseDto;
     }
+
+	@Override
+	public List<Visitor> getVisitorsByDateRange(LocalDate fromDate, LocalDate toDate) {
+		// Convert LocalDate → LocalDateTime (start of day, end of day)
+		LocalDateTime startDateTime=fromDate.atStartOfDay();
+		LocalDateTime endDateTime=toDate.atTime(LocalTime.MAX);
+		//List<Visitor> byVisitingDate = visitorRepository.findByVisitingDate(startDateTime, endDateTime);)
+		return visitorRepository.findVisitorsBetweenDates(startDateTime, endDateTime);
+	}
 
 	
 	}
